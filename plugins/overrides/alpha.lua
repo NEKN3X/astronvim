@@ -1,8 +1,4 @@
-local present, alpha = pcall(require, "alpha")
-
-if not present then
-   return
-end
+local options = {}
 
 local function button(sc, txt, keybind)
    local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
@@ -31,8 +27,6 @@ local function button(sc, txt, keybind)
       opts = opts,
    }
 end
-
-local options = {}
 
 local ascii = {
   "           ██          ██                    ",
@@ -71,32 +65,15 @@ options.header = {
 options.buttons = {
    type = "group",
    val = {
-      button("e"      , "  New file"   , ":ene <BAR> startinsert <CR>"),
-      button("SPC f f", "  Find File"  , ":Telescope find_files<CR>"),
-      button("SPC f o", "  Recent File", ":Telescope oldfiles<CR>"),
-      button("SPC f w", "  Find Word"  , ":Telescope live_grep<CR>"),
-      button("SPC b m", "  Bookmarks"  , ":Telescope marks<CR>"),
-      -- button("SPC t h", "  Themes  ", ":Telescope themes<CR>"),
-      -- button("SPC e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
+      button("SPC f f", "  Find File  ", ":Telescope find_files no_ignore=true<CR>"),
+      button("SPC f o", "  Recent File  ", ":Telescope oldfiles<CR>"),
+      button("SPC f w", "  Find Word  ", ":Telescope live_grep no_ignore=true<CR>"),
+      button("SPC b m", "  Bookmarks  ", ":Telescope marks<CR>"),
    },
    opts = {
       spacing = 1,
    },
 }
 
-options = require("core.utils").load_override(options, "goolord/alpha-nvim")
 
--- dynamic header padding
-local fn = vim.fn
-local marginTopPercent = 0.3
-local headerPadding = fn.max { 2, fn.floor(fn.winheight(0) * marginTopPercent) }
-
-alpha.setup {
-   layout = {
-      { type = "padding", val = headerPadding },
-      options.header,
-      { type = "padding", val = 2 },
-      options.buttons,
-   },
-   opts = {},
-}
+return options
