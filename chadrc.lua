@@ -5,7 +5,7 @@ local M = {}
 -- make sure you maintain the structure of `core/default_config.lua` here,
 -- example of changing theme:
 
-M.ui = { theme = "catppuccin" }
+M.ui = { transparency = true, theme = "catppuccin" }
 
 M.options = require "custom.options"
 
